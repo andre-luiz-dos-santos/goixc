@@ -42,3 +42,9 @@ type Radusuario struct {
 	ClienteID  int64  `json:"id_cliente,string"`
 	ContratoID int64  `json:"id_contrato,string"`
 }
+
+type DesbloqueioConfiancaResponse struct {
+	Tipo     string `json:"tipo"`
+	Codigo   string `json:"codigo"`
+	Mensagem string `json:"mensagem"`
+}
