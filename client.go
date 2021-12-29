@@ -17,7 +17,7 @@ type Client struct {
 func NewClient(url, token string) (*Client, error) {
 	t := strings.SplitN(token, ":", 2)
 	if len(t) != 2 {
-		return nil, &ErrBadToken{token}
+		return nil, &TokenError{token}
 	}
 	return &Client{
 		URL:      url,

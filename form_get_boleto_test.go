@@ -21,8 +21,8 @@ func TestClient_GetBoleto(t *testing.T) {
 	t.Run("boleto=-1", func(t *testing.T) {
 		id := int64(-1)
 		_, err = ixc.GetBoleto(context.Background(), id)
-		if !errors.Is(err, ErrBad) {
-			t.Errorf("GetBoleto(%v) = %v; want ErrBad", id, err)
+		if !errors.Is(err, ErrInvalid) {
+			t.Errorf("GetBoleto(%v) = %v; want ErrInvalid", id, err)
 		}
 	})
 	t.Run("boleto=IXC_BOLETO_ID", func(t *testing.T) {

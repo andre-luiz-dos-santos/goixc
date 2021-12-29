@@ -6,42 +6,42 @@ import (
 )
 
 var (
-	ErrBad       = errors.New("invalid data")
+	ErrInvalid   = errors.New("invalid data")
 	ErrNotFound  = errors.New("not found")
 	ErrForbidden = errors.New("forbidden")
 )
 
-type ErrBadToken struct {
+type TokenError struct {
 	Token string
 }
 
-func (e ErrBadToken) Error() string {
+func (e TokenError) Error() string {
 	return "invalid IXC token: " + e.Token
 }
 
-type ErrBadJSON struct {
-	Bytes []byte
-	Err   error
+type InvalidJSONError struct {
+	JSON []byte
+	Err  error
 }
 
-func (e ErrBadJSON) Error() string {
-	return fmt.Sprintf("invalid JSON: %v: %.120q", e.Err, e.Bytes)
+func (e InvalidJSONError) Error() string {
+	return fmt.Sprintf("invalid JSON: %v: %.120q", e.Err, e.JSON)
 }
 
-func (e ErrBadJSON) Unwrap() error {
+func (e InvalidJSONError) Unwrap() error {
 	return e.Err
 }
 
-type ErrBadPDF struct {
+type InvalidPDFError struct {
 	PDF []byte
 }
 
-func (e ErrBadPDF) Error() string {
+func (e InvalidPDFError) Error() string {
 	return fmt.Sprintf("invalid PDF: %.120q", e.PDF)
 }
 
-func (e ErrBadPDF) Unwrap() error {
-	return ErrBad
+func (e InvalidPDFError) Unwrap() error {
+	return ErrInvalid
 }
 
 type ErrLoginNotFound struct {
@@ -56,26 +56,26 @@ func (e ErrLoginNotFound) Unwrap() error {
 	return ErrNotFound
 }
 
-type ErrContrato struct {
+type ContratoError struct {
 	ContratoID int64
 	Mensagem   string
 	Err        error
 }
 
-func (e ErrContrato) Error() string {
-	return fmt.Sprintf("contrato ID %v: %v", e.ContratoID, e.Mensagem)
+func (e ContratoError) Error() string {
+	return fmt.Sprintf("contrato ID %v: %v: %v", e.ContratoID, e.Mensagem, e.Err)
 }
 
-func (e ErrContrato) Unwrap() error {
+func (e ContratoError) Unwrap() error {
 	return e.Err
 }
 
-type ErrIXCForm struct {
+type IXCFormError struct {
 	Form    string
-	JSON    interface{}
+	Args    interface{}
 	Message string
 }
 
-func (e ErrIXCForm) Error() string {
-	return fmt.Sprintf("IXC error in %v(%v): %v", e.Form, e.JSON, e.Message)
+func (e IXCFormError) Error() string {
+	return fmt.Sprintf("IXC error in %v(%v): %v", e.Form, e.Args, e.Message)
 }

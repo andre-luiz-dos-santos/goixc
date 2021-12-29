@@ -20,7 +20,7 @@ func (c *Client) GetBoleto(ctx context.Context, idBoleto int64) ([]byte, error) 
 		return nil, err
 	}
 	if !bytes.HasPrefix(pdf, []byte("%PDF")) {
-		return nil, &ErrBadPDF{pdf}
+		return nil, &InvalidPDFError{pdf}
 	}
 	return pdf, nil
 }

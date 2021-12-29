@@ -62,7 +62,7 @@ func (c *Request) RunJSON(ctx context.Context, respJSON interface{}) error {
 	}
 	err = json.Unmarshal(respBody, respJSON)
 	if err != nil {
-		return &ErrBadJSON{respBody, err}
+		return &InvalidJSONError{respBody, err}
 	}
 	return nil
 }
