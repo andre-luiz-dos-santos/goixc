@@ -10,6 +10,34 @@ type Response struct {
 	Tipo     string
 }
 
+type ClientesResponse struct {
+	Pagina    int64      `json:"page,string"`
+	Total     int64      `json:"total,string"`
+	Registros []*Cliente `json:"registros"`
+}
+
+type Cliente struct {
+	ID     int64  `json:"id,string"`
+	Ativo  string `json:"ativo"`
+	Razao  string `json:"razao"`
+	CPF    string `json:"cnpj_cpf"`
+	CRM    string `json:"crm"`
+	Emails string `json:"email"`
+	Obs    string `json:"obs"`
+	Tipo   string `json:"tipo_pessoa"`
+}
+
+type ContratosResponse struct {
+	Pagina    int64       `json:"page,string"`
+	Total     int64       `json:"total,string"`
+	Registros []*Contrato `json:"registros"`
+}
+
+type Contrato struct {
+	ID     int64  `json:"id,string"`
+	Status string `json:"status"`
+}
+
 type FnAreceberResponse struct {
 	Pagina    int64         `json:"page,string"`
 	Total     int64         `json:"total,string"`

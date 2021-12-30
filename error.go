@@ -6,9 +6,10 @@ import (
 )
 
 var (
-	ErrInvalid   = errors.New("invalid data")
-	ErrNotFound  = errors.New("not found")
-	ErrForbidden = errors.New("forbidden")
+	ErrInvalid     = errors.New("invalid data")
+	ErrNotFound    = errors.New("not found")
+	ErrForbidden   = errors.New("forbidden")
+	ErrAlreadyDone = errors.New("already done")
 )
 
 type TokenError struct {
@@ -44,15 +45,16 @@ func (e InvalidPDFError) Unwrap() error {
 	return ErrInvalid
 }
 
-type ErrLoginNotFound struct {
-	Login string
+type NotFoundError struct {
+	Resource string
+	Login    string
 }
 
-func (e ErrLoginNotFound) Error() string {
-	return fmt.Sprintf("login not found: %v", e.Login)
+func (e NotFoundError) Error() string {
+	return fmt.Sprintf("%v not found: %v", e.Resource, e.Login)
 }
 
-func (e ErrLoginNotFound) Unwrap() error {
+func (e NotFoundError) Unwrap() error {
 	return ErrNotFound
 }
 
@@ -77,5 +79,5 @@ type IXCFormError struct {
 }
 
 func (e IXCFormError) Error() string {
-	return fmt.Sprintf("IXC error in %v(%v): %v", e.Form, e.Args, e.Message)
+	return fmt.Sprintf("IXC error in %v(%+v): %v", e.Form, e.Args, e.Message)
 }

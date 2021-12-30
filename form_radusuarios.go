@@ -14,7 +14,7 @@ func (c *Client) GetRadusuarios(ctx context.Context, query interface{}) (*Radusu
 func (c *Client) GetRadusuarioByLogin(ctx context.Context, login string) (*Radusuario, error) {
 	login = strings.TrimSpace(login)
 	if login == "" {
-		return nil, &ErrLoginNotFound{login}
+		return nil, &NotFoundError{"login", login}
 	}
 	resp, err := c.GetRadusuarios(ctx, map[string]string{
 		"qtype": "radusuarios.login",
@@ -25,7 +25,7 @@ func (c *Client) GetRadusuarioByLogin(ctx context.Context, login string) (*Radus
 		return nil, err
 	}
 	if resp.Total < 1 || len(resp.Registros) < 1 {
-		return nil, &ErrLoginNotFound{login}
+		return nil, &NotFoundError{"login", login}
 	}
 	return resp.Registros[0], nil
 }

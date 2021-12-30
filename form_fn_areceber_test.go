@@ -22,8 +22,8 @@ func TestClient_GetFnAreceberAbertos(t *testing.T) {
 		resp, err := ixc.GetFnAreceberAbertos(context.Background(), id)
 		if err != nil {
 			t.Errorf("Failed to GetFnAreceberAbertos(%v): %v", id, err)
-		} else if len(resp.Registros) != 0 {
-			t.Errorf("len(GetFnAreceberAbertos(%v).Registros) = %v; want 0", id, len(resp.Registros))
+		} else if len(resp) != 0 {
+			t.Errorf("len(GetFnAreceberAbertos(%v)) = %v; want 0", id, len(resp))
 		}
 	})
 	t.Run("contrato=IXC_CONTRATO_ID", func(t *testing.T) {
@@ -35,8 +35,8 @@ func TestClient_GetFnAreceberAbertos(t *testing.T) {
 		resp, err := ixc.GetFnAreceberAbertos(context.Background(), int64(id))
 		if err != nil {
 			t.Errorf("Failed to GetFnAreceberAbertos(%v): %v", id, err)
-		} else if len(resp.Registros) <= 0 {
-			t.Errorf("len(GetFnAreceberAbertos(%v).Registros) = %v; want >= 1", id, len(resp.Registros))
+		} else if len(resp) <= 0 {
+			t.Errorf("len(GetFnAreceberAbertos(%v)) = %v; want >= 1", id, len(resp))
 		}
 	})
 }

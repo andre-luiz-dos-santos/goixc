@@ -11,7 +11,7 @@ func (c *Client) GetFnAreceber(ctx context.Context, query interface{}) (*FnArece
 	return resp, err
 }
 
-func (c *Client) GetFnAreceberAbertos(ctx context.Context, idContrato int64) (*FnAreceberResponse, error) {
+func (c *Client) GetFnAreceberAbertos(ctx context.Context, idContrato int64) ([]*FnAreceber, error) {
 	grid, err := json.Marshal([]map[string]string{
 		{"TB": "fn_areceber.liberado", "OP": "=", "P": "S"},
 		{"TB": "fn_areceber.status", "OP": "!=", "P": "C"},
@@ -20,7 +20,7 @@ func (c *Client) GetFnAreceberAbertos(ctx context.Context, idContrato int64) (*F
 	if err != nil {
 		return nil, err
 	}
-	return c.GetFnAreceber(ctx, map[string]interface{}{
+	resp, err := c.GetFnAreceber(ctx, map[string]interface{}{
 		"qtype":      "fn_areceber.id_contrato",
 		"oper":       "=",
 		"query":      idContrato,
@@ -29,4 +29,5 @@ func (c *Client) GetFnAreceberAbertos(ctx context.Context, idContrato int64) (*F
 		"sortorder":  "asc",
 		"grid_param": string(grid),
 	})
+	return resp.Registros, err
 }
