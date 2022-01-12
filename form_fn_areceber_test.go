@@ -19,7 +19,7 @@ func TestClient_GetFnAreceberAbertos(t *testing.T) {
 	}
 	t.Run("contrato=-1", func(t *testing.T) {
 		id := int64(-1)
-		resp, err := ixc.GetFnAreceberAbertos(context.Background(), id)
+		resp, err := ixc.GetFnAreceberAbertos(context.Background(), "id_contrato", id)
 		if err != nil {
 			t.Errorf("Failed to GetFnAreceberAbertos(%v): %v", id, err)
 		} else if len(resp) != 0 {
@@ -32,7 +32,7 @@ func TestClient_GetFnAreceberAbertos(t *testing.T) {
 			t.Skipf("IXC_CONTRATO_ID is not set")
 		}
 		id, _ := strconv.Atoi(idStr)
-		resp, err := ixc.GetFnAreceberAbertos(context.Background(), int64(id))
+		resp, err := ixc.GetFnAreceberAbertos(context.Background(), "id_contrato", int64(id))
 		if err != nil {
 			t.Errorf("Failed to GetFnAreceberAbertos(%v): %v", id, err)
 		} else if len(resp) <= 0 {
