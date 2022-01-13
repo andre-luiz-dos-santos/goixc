@@ -53,6 +53,7 @@ type FnAreceber struct {
 	DataEmissao    DateYMD         `json:"data_emissao"`
 	DataVencimento DateYMD         `json:"data_vencimento"`
 	Valor          decimal.Decimal `json:"valor"`
+	LinhaDigitavel string          `json:"linha_digitavel"`
 	Obs            string          `json:"obs"`
 }
 
